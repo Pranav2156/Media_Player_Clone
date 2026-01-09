@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clone</title>
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="utilities.css">
+</head>
+
+<body>
+    <div class="flex first">
+        <div class="left  borderRadius">
+            <img src="./img/close.svg" class="close invert" width="20px" alt="">
+            <div class="TopLeft  borderRadius flexC">
+                <img width="150px" src="img/logo.svg" alt="logo" class="invert">
+                <ul class="nav flexC">
+                    <li class="invert"><img src="img/home.svg" width="15" alt="home"> Home</li>
+                    <li class="invert"><img src="img/search.svg" width="15" alt="search"> Search</li>
+                </ul>
+            </div>
+            <div class="BottonLeft borderRadius">
+                <div class="flex library">
+                    <img src="img/playlist.svg" width="50px" class="invert" alt="playlist">
+                    <div>
+                        <h2 class="invert">Your Library</h2>
+                    </div>
+                </div>
+                
+                <ul class="fav" >
+
+                </ul>
+              
+                <div class="footer">
+                    <div><a href="https://www.spotify.com/jp/legal/"><span>Legal</span></a></div>
+                    <div><a href="https://www.spotify.com/jp/privacy/"><span>Privacy Center</span></a></div>
+                    <div><a href="https://www.spotify.com/jp/legal/privacy-policy/"><span>Privacy Policy</span></a>
+                    </div>
+                    <div><a href="https://www.spotify.com/jp/legal/cookies-policy/"><span>Cookies</span></a></div>
+                    <div><a href="https://www.spotify.com/jp/legal/privacy-policy/#s3"><span>About Ads</span></a></div>
+                    <div><a href="https://www.spotify.com/jp/accessibility/"><span>Accessibility</span></a></div>
+                </div>
+            </div>
+        </div>
+        <div class="right  borderRadius">
+            <nav class="head ">
+                <div class="hamburgerfix flex">
+                    <img class="hamburger invert" src="./img/hamburger.svg" width="30px" alt="hamburger">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M15 6L9.70711 11.2929C9.37377 11.6262 9.20711 11.7929 9.20711 12C9.20711 12.2071 9.37377 12.3738 9.70711 12.7071L15 18"
+                            stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M9 18L14.2929 12.7071C14.6262 12.3738 14.7929 12.2071 14.7929 12C14.7929 11.7929 14.6262 11.6262 14.2929 11.2929L9 6"
+                            stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="button">
+                    <button class="sign ">SignUP</button>
+                    <button class="login ">Login</button>
+                </div>
+            </nav>
+            <div class="SpotifyPlaylist">
+                <h1>Spotify Playlist</h1>
+                <div class="SongImage flex">
+                    <!-- <div data-folder="Angry" class="song1 ">
+                        <svg class="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="44" height="44"
+                            color="black" fill="#05fa1d" stroke="#05fa1d" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <path
+                                d="M9.5 11.1998V12.8002C9.5 14.3195 9.5 15.0791 9.95576 15.3862C10.4115 15.6932 11.0348 15.3535 12.2815 14.6741L13.7497 13.8738C15.2499 13.0562 16 12.6474 16 12C16 11.3526 15.2499 10.9438 13.7497 10.1262L12.2815 9.32594C11.0348 8.6465 10.4115 8.30678 9.95576 8.61382C9.5 8.92086 9.5 9.6805 9.5 11.1998Z"
+                                fill="currentColor" />
+                        </svg>
+                        <img src="https://i.ytimg.com/vi/RkJYeLnJP7o/hq720.jpg?sqp=-oaymwFBCNAFEJQDSFryq4qpAzMIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB8AEB-AHUBoAC4AOKAgwIABABGGUgUyhNMA8=&rs=AOn4CLBVbbdBYGCtdHiSk3k27XQpGopKTA"
+                            width="100px" height="200px" alt="">
+                        <h3>Mumbai Beats</h3>
+                        <p>Released on: 2022-01-10</p>
+                    </div> -->
+                    <!-- <div data-folder="Calm" class="song1 ">
+                        <svg class="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="44" height="44"
+                            color="black" fill="#05fa1d" stroke="#05fa1d" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <path
+                                d="M9.5 11.1998V12.8002C9.5 14.3195 9.5 15.0791 9.95576 15.3862C10.4115 15.6932 11.0348 15.3535 12.2815 14.6741L13.7497 13.8738C15.2499 13.0562 16 12.6474 16 12C16 11.3526 15.2499 10.9438 13.7497 10.1262L12.2815 9.32594C11.0348 8.6465 10.4115 8.30678 9.95576 8.61382C9.5 8.92086 9.5 9.6805 9.5 11.1998Z"
+                                fill="currentColor" />
+                        </svg>
+                        <img src="data:image/jpeg;base64,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"
+                            width="100px" height="200px" alt="">
+                        <h3>Rapid Unscheduled disassembly</h3>
+                        <p>From YT audio Library</p>
+                    </div> -->
+                </div>
+                <div class="AbovePlay flex">
+                    <div class="playbar borderRadius">
+
+
+                        <div class="function">
+                            <div class="Name">
+
+                            </div>
+                            <div class="SN">
+                                <svg id="prev" class="prev" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    width="32" height="32" color="currentColor" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linejoin="round">
+                                    <path
+                                        d="M8.06492 12.6258C8.31931 13.8374 9.67295 14.7077 12.3802 16.4481C15.3247 18.3411 16.797 19.2876 17.9895 18.9229C18.3934 18.7994 18.7654 18.5823 19.0777 18.2876C20 17.4178 20 15.6118 20 12C20 8.38816 20 6.58224 19.0777 5.71235C18.7654 5.41773 18.3934 5.20057 17.9895 5.07707C16.797 4.71243 15.3247 5.6589 12.3802 7.55186C9.67295 9.29233 8.31931 10.1626 8.06492 11.3742C7.97836 11.7865 7.97836 12.2135 8.06492 12.6258Z" />
+                                    <path d="M4 4L4 20" />
+                                </svg>
+                                <img id="played" class="PlaySong" src="./img/play.svg" alt="">
+                                <svg id="next" class="next mirror" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24" width="32" height="32" color="currentColor" fill="none"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+                                    <path
+                                        d="M8.06492 12.6258C8.31931 13.8374 9.67295 14.7077 12.3802 16.4481C15.3247 18.3411 16.797 19.2876 17.9895 18.9229C18.3934 18.7994 18.7654 18.5823 19.0777 18.2876C20 17.4178 20 15.6118 20 12C20 8.38816 20 6.58224 19.0777 5.71235C18.7654 5.41773 18.3934 5.20057 17.9895 5.07707C16.797 4.71243 15.3247 5.6589 12.3802 7.55186C9.67295 9.29233 8.31931 10.1626 8.06492 11.3742C7.97836 11.7865 7.97836 12.2135 8.06492 12.6258Z" />
+                                    <path d="M4 4L4 20" />
+                                </svg>
+                            </div>
+                            <div class="range">
+                            <div class="SongTime">
+                                
+                            </div>
+                            <div class="vol flex" >
+                                <img src="./img/volume.svg" width="30px" class="invert" alt="volume">
+                                
+                                    <input id="volume" type="range">
+                                
+                            </div>
+                            </div>
+
+                        </div>
+                        
+
+
+
+                        <div class="timeline">
+
+                            <div class="dot">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="index.js"></script>
+</body>
+
+</html>
