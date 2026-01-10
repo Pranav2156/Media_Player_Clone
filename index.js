@@ -24,20 +24,20 @@ async function albums() {
     // // console.log(div)
     // let anchors = div.getElementsByTagName("a")
     // console.log(anchors)
- card.innerHTML = ""
+    card.innerHTML = ""
     // let arr = Array.from(anchors)
     for (let fold of folders) {
         // const e = arr[index];
         // console.log(e.href)
-       
+
         // if (e.href.includes("%5CSongs") && !e.href.includes("htaccess")) {
         //     let splitted = e.href.split("/").slice(-2)[0]
         //     console.log(splitted)
         //     let folder = splitted.split("%5C")[2]
         //     console.log(folder)
-            let a = await fetch(`Songs/${fold}/info.json`)
-            let b = await a.json();
-            card.innerHTML += `<div data-folder="${fold}" class="song1">
+        let a = await fetch(`Songs/${fold}/info.json`)
+        let b = await a.json();
+        card.innerHTML += `<div data-folder="${fold}" class="song1">
                         <svg class="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="44" height="44"
                             color="black" fill="#05fa1d" stroke="#05fa1d" stroke-width="1.5">
                             <circle cx="12" cy="12" r="10" />
@@ -50,7 +50,7 @@ async function albums() {
                         <h3>${b.title}</h3>
                         <p>${b.description}</p>
                     </div>`
-        
+
     }
     Array.from(document.getElementsByClassName("song1")).forEach(e => {
         e.addEventListener("click", async a => {
@@ -122,7 +122,7 @@ async function getsong(folder) {
                     </li>`
 
     }
-      Array.from(document.querySelector(".fav").getElementsByTagName("li")).forEach(e => {
+    Array.from(document.querySelector(".fav").getElementsByTagName("li")).forEach(e => {
         const PlayNow = e.querySelector(".PlayNow")
         if (!PlayNow) return
         PlayNow.addEventListener("click", () => {
@@ -152,7 +152,7 @@ async function main() {
     await albums()
 
 
-  
+
 
     played.addEventListener("click", () => {
         if (currentSong.paused) {
@@ -166,17 +166,63 @@ async function main() {
         }
     })
     currentSong.addEventListener("timeupdate", () => {
+        if (isDragging) return;
         document.querySelector(".SongTime").innerHTML =
             ` ${SecondstoMinutes(currentSong.currentTime)} / ${SecondstoMinutes(currentSong.duration)}`;
         document.querySelector(".dot").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
 
         document.querySelector(".timeline").style.background = ` linear-gradient(to right,red ${(currentSong.currentTime / currentSong.duration) * 100 + "%"},transparent ${(currentSong.currentTime / currentSong.duration) * 100 + "%"}`
+
     })
     document.querySelector(".timeline").addEventListener("click", (e) => {
-        let percent = ((e.offsetX / e.target.getBoundingClientRect().width) * 100);
-        document.querySelector(".dot").style.left = percent + "%"
-        currentSong.currentTime = ((currentSong.duration) * percent) / 100
+       document.querySelector(".timeline").addEventListener("click", (e) => {
+    const timeline = document.querySelector(".timeline");
+    const rect = timeline.getBoundingClientRect();
+
+    let x = e.clientX - rect.left;
+    x = Math.max(0, Math.min(x, rect.width));
+
+    let percent = (x / rect.width) * 100;
+
+    document.querySelector(".dot").style.left = percent + "%";
+    currentSong.currentTime = (currentSong.duration * percent) / 100;
+});
+
+
+
     })
+    const timeline = document.querySelector(".timeline");
+    const dot = document.querySelector(".dot");
+
+    let isDragging = false;
+
+    function seek(e) {
+        const rect = timeline.getBoundingClientRect();
+        let x = e.clientX - rect.left;
+
+        x = Math.max(0, Math.min(x, rect.width));
+        let percent = (x / rect.width) * 100;
+
+        dot.style.left = percent + "%";
+        currentSong.currentTime = (currentSong.duration * percent) / 100;
+
+        timeline.style.background = `linear-gradient(to right, red ${percent}%, transparent ${percent}%)`;
+    }
+
+    dot.addEventListener("pointerdown", (e) => {
+        isDragging = true;
+        dot.setPointerCapture(e.pointerId);
+    });
+
+    document.addEventListener("pointermove", (e) => {
+        if (!isDragging) return;
+        seek(e);
+    });
+
+    document.addEventListener("pointerup", () => {
+        isDragging = false;
+    });
+
     document.querySelector(".hamburger").addEventListener("click", () => {
         document.querySelector(".left").style.transform = "translateX(0)"
     })
@@ -204,14 +250,14 @@ async function main() {
         console.log(e, e.target, e.target.value)
         currentSong.volume = parseInt(e.target.value) / 100
     })
-    document.querySelector(".vol > img").addEventListener("click",(e)=>{
-        if(e.target.src.includes("volume.svg")){
-        e.target.src = e.target.src.replace("volume.svg","mute.svg")
-        currentSong.volume = 0
-        volume.value = 0
+    document.querySelector(".vol > img").addEventListener("click", (e) => {
+        if (e.target.src.includes("volume.svg")) {
+            e.target.src = e.target.src.replace("volume.svg", "mute.svg")
+            currentSong.volume = 0
+            volume.value = 0
 
-        }else{
-            e.target.src = e.target.src.replace("mute.svg","volume.svg")
+        } else {
+            e.target.src = e.target.src.replace("mute.svg", "volume.svg")
             currentSong.volume = .50
             volume.value = 50
         }

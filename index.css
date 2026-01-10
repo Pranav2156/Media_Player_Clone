@@ -122,7 +122,7 @@
 
 .SpotifyPlaylist>h1 {
     color: white;
-    padding: 20px;
+    padding: 10px;
     margin: 10px;
 }
 
@@ -270,7 +270,7 @@
     border-radius: 50px;
     border: 2px solid white;
     bottom: -6px;
-    transition: left 0.5s;
+    transition: none;
 }
 .prev{
     cursor: pointer;
