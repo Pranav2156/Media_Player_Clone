@@ -15,7 +15,7 @@ function SecondstoMinutes(seconds) {
 }
 async function albums() {
     let card = document.querySelector(".SongImage")
-    let a = await fetch(`/Songs/playlist.json`)
+    let a = await fetch(`Songs/playlist.json`)
     let r = await a.json()
     let folders = r.folders;
     // console.log(res)
@@ -35,7 +35,7 @@ async function albums() {
         //     console.log(splitted)
         //     let folder = splitted.split("%5C")[2]
         //     console.log(folder)
-            let a = await fetch(`/Songs/${fold}/info.json`)
+            let a = await fetch(`Songs/${fold}/info.json`)
             let b = await a.json();
             card.innerHTML += `<div data-folder="${fold}" class="song1">
                         <svg class="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="44" height="44"
@@ -45,7 +45,7 @@ async function albums() {
                                 d="M9.5 11.1998V12.8002C9.5 14.3195 9.5 15.0791 9.95576 15.3862C10.4115 15.6932 11.0348 15.3535 12.2815 14.6741L13.7497 13.8738C15.2499 13.0562 16 12.6474 16 12C16 11.3526 15.2499 10.9438 13.7497 10.1262L12.2815 9.32594C11.0348 8.6465 10.4115 8.30678 9.95576 8.61382C9.5 8.92086 9.5 9.6805 9.5 11.1998Z"
                                 fill="currentColor" />
                         </svg>
-                        <img src="/Songs/${fold}/cover.jpg"
+                        <img src="Songs/${fold}/cover.jpg"
                             width="100px" height="200px" alt="">
                         <h3>${b.title}</h3>
                         <p>${b.description}</p>
@@ -63,7 +63,7 @@ async function albums() {
 }
 async function getsong(folder) {
     currFolder = folder
-    let a = await fetch(`/Songs/${folder}/songs.json`)
+    let a = await fetch(`Songs/${folder}/songs.json`)
     let response = await a.json();
 
     songs = response.tracks
@@ -136,10 +136,10 @@ async function getsong(folder) {
 
 }
 const PlayMusic = (track, pause = false) => {
-    currentSong.src = `./Songs/${currFolder}/` + track
+    currentSong.src = `Songs/${currFolder}/` + track
     if (!pause) {
         currentSong.play()
-        played.src = "./img/paused.svg"
+        played.src = "img/paused.svg"
     }
     document.querySelector(".Name").innerHTML = decodeURI(track)
     document.querySelector(".SongTime").innerHTML = "00:00 / 00:00"
@@ -157,12 +157,12 @@ async function main() {
     played.addEventListener("click", () => {
         if (currentSong.paused) {
             currentSong.play()
-            played.src = "./img/paused.svg"
+            played.src = "img/paused.svg"
             played.classList.add("paused")
         }
         else {
             currentSong.pause()
-            played.src = "./img/play.svg"
+            played.src = "img/play.svg"
         }
     })
     currentSong.addEventListener("timeupdate", () => {
