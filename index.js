@@ -25,7 +25,7 @@ async function albums() {
     // let anchors = div.getElementsByTagName("a")
     // console.log(anchors)
  card.innerHTML = ""
-    let arr = Array.from(anchors)
+    // let arr = Array.from(anchors)
     for (let fold of folders) {
         // const e = arr[index];
         // console.log(e.href)
@@ -63,7 +63,7 @@ async function albums() {
 }
 async function getsong(folder) {
     currFolder = folder
-    let a = await fetch(`/Songs/${folder}/songs/json`)
+    let a = await fetch(`/Songs/${folder}/songs.json`)
     let response = await a.json();
 
     songs = response.tracks
@@ -122,6 +122,15 @@ async function getsong(folder) {
                     </li>`
 
     }
+      Array.from(document.querySelector(".fav").getElementsByTagName("li")).forEach(e => {
+        const PlayNow = e.querySelector(".PlayNow")
+        if (!PlayNow) return
+        PlayNow.addEventListener("click", () => {
+            const SongName = e.querySelector(".SongName").children[0].textContent.trim()
+            const Artist = e.querySelector(".SongName").children[1].textContent.trim()
+            PlayMusic(`${SongName} - ${Artist}`)
+        })
+    })
 
     return songs
 
@@ -143,15 +152,7 @@ async function main() {
     await albums()
 
 
-    Array.from(document.querySelector(".fav").getElementsByTagName("li")).forEach(e => {
-        const PlayNow = e.querySelector(".PlayNow")
-        if (!PlayNow) return
-        PlayNow.addEventListener("click", () => {
-            const SongName = e.querySelector(".SongName").children[0].textContent.trim()
-            const Artist = e.querySelector(".SongName").children[1].textContent.trim()
-            PlayMusic(`${SongName} - ${Artist}`)
-        })
-    })
+  
 
     played.addEventListener("click", () => {
         if (currentSong.paused) {
@@ -183,14 +184,18 @@ async function main() {
         document.querySelector(".left").style.left = "-100%"
     })
     prev.addEventListener("click", () => {
-        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+        let current = decodeURIComponent(currentSong.src.split("/").pop());
+        let index = songs.indexOf(current)
+        // console.log(songs)
+        // console.log(index)
         if ((index - 1) >= 0) {
             PlayMusic(songs[index - 1])
         }
     })
 
     next.addEventListener("click", () => {
-        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+        let current = decodeURIComponent(currentSong.src.split("/").pop());
+        let index = songs.indexOf(current)
         if (index + 1 < songs.length) {
             PlayMusic(songs[index + 1])
         }
