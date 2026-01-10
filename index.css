@@ -361,6 +361,9 @@
         height: 160px;
         width: 90%;
     }
+    .timeline{
+        touch-action: none;
+    }
 
     .hamburger {
         display: block;

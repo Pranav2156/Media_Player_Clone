@@ -218,6 +218,10 @@ async function main() {
         if (!isDragging) return;
         seek(e);
     });
+    timeline.addEventListener("pointerdown", (e) => {
+    isDragging = true;
+    seek(e);
+});
 
     document.addEventListener("pointerup", () => {
         isDragging = false;
