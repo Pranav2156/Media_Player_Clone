@@ -15,28 +15,29 @@ function SecondstoMinutes(seconds) {
 }
 async function albums() {
     let card = document.querySelector(".SongImage")
-    let a = await fetch(`/Songs/`)
-    let r = await a.text()
+    let a = await fetch(`/Songs/playlist.json`)
+    let r = await a.json()
+    let folders = r.folders;
     // console.log(res)
-    let div = document.createElement("div")
-    div.innerHTML = r;
-    // console.log(div)
-    let anchors = div.getElementsByTagName("a")
+    // let div = document.createElement("div")
+    // div.innerHTML = r;
+    // // console.log(div)
+    // let anchors = div.getElementsByTagName("a")
     // console.log(anchors)
  card.innerHTML = ""
     let arr = Array.from(anchors)
-    for (let index = 0; index < arr.length; index++) {
-        const e = arr[index];
+    for (let fold of folders) {
+        // const e = arr[index];
         // console.log(e.href)
        
-        if (e.href.includes("%5CSongs") && !e.href.includes("htaccess")) {
-            let splitted = e.href.split("/").slice(-2)[0]
-            console.log(splitted)
-            let folder = splitted.split("%5C")[2]
-            console.log(folder)
-            let a = await fetch(`/${splitted}/info.json`)
+        // if (e.href.includes("%5CSongs") && !e.href.includes("htaccess")) {
+        //     let splitted = e.href.split("/").slice(-2)[0]
+        //     console.log(splitted)
+        //     let folder = splitted.split("%5C")[2]
+        //     console.log(folder)
+            let a = await fetch(`/Songs/${fold}/info.json`)
             let b = await a.json();
-            card.innerHTML += `<div data-folder="${folder}" class="song1">
+            card.innerHTML += `<div data-folder="${fold}" class="song1">
                         <svg class="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="44" height="44"
                             color="black" fill="#05fa1d" stroke="#05fa1d" stroke-width="1.5">
                             <circle cx="12" cy="12" r="10" />
@@ -44,12 +45,12 @@ async function albums() {
                                 d="M9.5 11.1998V12.8002C9.5 14.3195 9.5 15.0791 9.95576 15.3862C10.4115 15.6932 11.0348 15.3535 12.2815 14.6741L13.7497 13.8738C15.2499 13.0562 16 12.6474 16 12C16 11.3526 15.2499 10.9438 13.7497 10.1262L12.2815 9.32594C11.0348 8.6465 10.4115 8.30678 9.95576 8.61382C9.5 8.92086 9.5 9.6805 9.5 11.1998Z"
                                 fill="currentColor" />
                         </svg>
-                        <img src="/${splitted}/cover.jpg"
+                        <img src="/Songs/${fold}/cover.jpg"
                             width="100px" height="200px" alt="">
                         <h3>${b.title}</h3>
                         <p>${b.description}</p>
                     </div>`
-        }
+        
     }
     Array.from(document.getElementsByClassName("song1")).forEach(e => {
         e.addEventListener("click", async a => {
@@ -58,23 +59,25 @@ async function albums() {
             PlayMusic(songs[0])
         })
     })
-}
 
+}
 async function getsong(folder) {
     currFolder = folder
-    let a = await fetch(`/Songs/${folder}`)
-    let response = await a.text();
+    let a = await fetch(`/Songs/${folder}/songs/json`)
+    let response = await a.json();
 
-    let div = document.createElement("div")
-    div.innerHTML = response
-    let as = div.getElementsByTagName("a")
-    songs = []
-    for (let index = 0; index < as.length; index++) {
-        const element = as[index];
-        if (element.href.endsWith(".mp3")) {
-            songs.push((element.href.split(`/%5CSongs%5C${folder}%5C`))[1])
-        }
-    }
+    songs = response.tracks
+
+    // let div = document.createElement("div")
+    // div.innerHTML = response
+    // let as = div.getElementsByTagName("a")
+    // songs = []
+    // for (let index = 0; index < as.length; index++) {
+    //     const element = as[index];
+    //     if (element.href.endsWith(".mp3")) {
+    //         songs.push((element.href.split(`/%5CSongs%5C${folder}%5C`))[1])
+    //     }
+    // }
     // console.log(songs)
     let songli = document.querySelector(".fav")
     songli.innerHTML = " "
